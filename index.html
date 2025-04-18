@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>flashgamestuff</title>
+  <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+  <style>
+    /* Loader spinner */
+    #loader {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      border: 10px solid #f3f3f3;
+      border-top: 10px solid #3498db;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      animation: spin 1s linear infinite;
+      z-index: 9999;
+    }
+
+    @keyframes spin {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    #flash-container {
+      display: none;
+      width: 100%;
+      height: 100%;
+      text-align: center;
+      padding-top: 20px;
+    }
+
+    body.loaded #loader {
+      display: none;
+    }
+
+    body.loaded #flash-container {
+      display: block;
+    }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #000;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <!-- Loader -->
+  <div id="loader"></div>
+
+  <!-- Flash container -->
+  <div id="flash-container"></div>
+
+  <script>
+    window.RufflePlayer = window.RufflePlayer || {};
+
+    window.addEventListener("load", () => {
+      const ruffle = window.RufflePlayer.newest();
+      const container = document.getElementById("flash-container");
+      const player = ruffle.createPlayer();
+      container.appendChild(player);
+
+      // Load your SWF file
+      player.load("https://gachi.gay/1fWdST").then(() => {
+        // When player is loaded, show content
+        document.body.classList.add("loaded");
+      });
+    });
+  </script>
+</body>
+</html>
